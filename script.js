@@ -27,11 +27,27 @@ digits.forEach((digit) => {
 
 operators.forEach((operator) => {
     operator.addEventListener("click", () => {
-       currentOperator = operator.textContent;
-       display.textContent += currentOperator;
-       console.log(currentOperator);     
+        if (firstNumber === "" || firstNumber === "Error!") return;
+
+        if (firstNumber !== "" && currentOperator !== "" && secondNumber !== "") {
+            let result = operate(currentOperator, firstNumber, secondNumber);
+            
+            if (result === "Error!") {
+                display.textContent = "Error!";
+                firstNumber = "";
+                secondNumber = "";
+                currentOperator = "";
+                return; // Hatadan sonra operatörü eklemeden dur
+            }
+
+            firstNumber = result.toString();
+            secondNumber = "";
+        }
+
+        currentOperator = operator.textContent;
+        display.textContent = firstNumber + currentOperator;
     });
-})
+});
 
 const equals = document.querySelector(".equals")
 
@@ -39,7 +55,12 @@ function add(a, b) { return a + b; }
 function subtract(a, b) { return a - b; }
 function multiply(a, b) { return a * b; }
 function divide(a, b) { 
-    if (b === 0) return "Error!";
+    if (b === 0) {
+        firstNumber = "";
+        secondNumber = "";
+        currentOperator = "";
+        return "Error!";
+    }
     return a / b; 
 }
 
@@ -62,8 +83,11 @@ equals.addEventListener("click", () => {
 
     let result = operate(currentOperator, firstNumber, secondNumber);
     display.textContent = result;
-
-    firstNumber = result.toString();
+    if (result === "Error!") {
+        firstNumber = ""; // Eğer hata varsa firstNumber'ı "Error!" YAPMA, boş bırak
+    } else {
+        firstNumber = result.toString();
+    }
     secondNumber = "";
     currentOperator = "";
 });
