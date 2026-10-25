@@ -1,0 +1,30 @@
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#container {
+    background-color: rgb(209, 209, 209);
+    width: 25vw;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#display {
+    flex: 1;
+}
+
+#buttons {
+    flex: 2;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.btn {
+    width: 25%;
+    height: 25%;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
