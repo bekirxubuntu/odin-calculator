@@ -72,14 +72,21 @@ function divide(a, b) {
 function operate(operator, a, b) {
     a = Number(a);
     b = Number(b);
+    let result;
     
     switch (operator) {
-        case "+": return add(a, b);
-        case "-": return subtract(a, b);
-        case "*": return multiply(a, b);
-        case "/": return divide(a, b);
+        case "+": result = add(a, b); break;
+        case "-": result = subtract(a, b); break;
+        case "*": result = multiply(a, b); break;
+        case "/": result = divide(a, b); break;
         default: return null;
     }
+
+    if (typeof result === "number") {
+        result = Math.round(result * 10000) / 10000;
+    }
+
+    return result;
 }
 
 let isCalculated = false;
