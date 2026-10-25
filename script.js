@@ -12,6 +12,10 @@ let secondNumber = "";
 
 digits.forEach((digit) => {
     digit.addEventListener("click", () => {
+        if (isCalculated && currentOperator == ""){
+            firstNumber = "";
+            isCalculated = false;
+        }
         if (currentOperator == ""){
             firstNumber += digit.textContent;
             display.textContent = firstNumber;
@@ -27,6 +31,7 @@ digits.forEach((digit) => {
 
 operators.forEach((operator) => {
     operator.addEventListener("click", () => {
+        isCalculated = false;
         if (firstNumber === "" || firstNumber === "Error!") return;
 
         if (firstNumber !== "" && currentOperator !== "" && secondNumber !== "") {
@@ -77,6 +82,8 @@ function operate(operator, a, b) {
     }
 }
 
+let isCalculated = false;
+
 equals.addEventListener("click", () => {
 
     if (firstNumber === "" || currentOperator === "" || secondNumber === "") return;
@@ -87,6 +94,7 @@ equals.addEventListener("click", () => {
         firstNumber = ""; // Eğer hata varsa firstNumber'ı "Error!" YAPMA, boş bırak
     } else {
         firstNumber = result.toString();
+        isCalculated = true;
     }
     secondNumber = "";
     currentOperator = "";
@@ -95,6 +103,7 @@ equals.addEventListener("click", () => {
 const clear = document.querySelector(".clear");
 
 clear.addEventListener("click", () => {
+    isCalculated = false;
     display.textContent = "";
     firstNumber = "";
     secondNumber = "";
